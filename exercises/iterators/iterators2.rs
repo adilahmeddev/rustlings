@@ -6,7 +6,8 @@
 // Execute `rustlings hint iterators2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+
+use std::borrow::BorrowMut;
 
 // Step 1.
 // Complete the `capitalize_first` function.
@@ -15,7 +16,10 @@ pub fn capitalize_first(input: &str) -> String {
     let mut c = input.chars();
     match c.next() {
         None => String::new(),
-        Some(first) => ???,
+        Some(first) => {
+            first.clone().to_ascii_uppercase().to_string()+ &c.clone().as_str().to_string()
+
+        },
     }
 }
 
@@ -24,7 +28,12 @@ pub fn capitalize_first(input: &str) -> String {
 // Return a vector of strings.
 // ["hello", "world"] -> ["Hello", "World"]
 pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    vec![]
+    let  v =words.to_vec();
+    let mut out :Vec<String> = vec![];
+    for mut word in &v{
+        out.push(capitalize_first(word).as_str().to_string())
+    }
+   out
 }
 
 // Step 3.
@@ -32,7 +41,22 @@ pub fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
 // Return a single string.
 // ["hello", " ", "world"] -> "Hello World"
 pub fn capitalize_words_string(words: &[&str]) -> String {
-    String::new()
+   let x = capitalize_words_vector(words);
+   let mut out = String::new();   
+   let mut i = x.iter();
+
+     match i.next() {
+        None => (),
+        Some(first) => {
+           out = first.clone();
+           
+
+        },
+    }
+    for c in i{
+        out = out + c;
+    }
+    out
 }
 
 #[cfg(test)]

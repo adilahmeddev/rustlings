@@ -145,7 +145,6 @@ fn get_hint_for_single_test() {
         .stdout("Hello!\n");
 }
 
-
 #[test]
 fn run_compile_exercise_does_not_prompt() {
     Command::cargo_bin("rustlings")

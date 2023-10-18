@@ -40,12 +40,35 @@ impl Default for Person {
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
 
-// I AM NOT DONE
-
+use std::str::FromStr;
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+      
+        if s.len()>0{
+            let strs: Vec<&str> = s.split(',').collect();
+            if strs.len()>=2 && strs.get(1).is_some(){
+               
+                let mut name = strs.get(0).unwrap().to_string();
+                if name.is_empty(){
+                    return  Person { name: "John".into(), age: 30 }
+                }
+                if  strs.get(0).is_some(){
+                    let a = strs.get(1).unwrap().clone().to_string();
+                    
+                    match usize::from_str(&a){
+                        Ok(a) => ( return  Person { name: name, age: a }) ,
+                        Err(e) =>( return  Person { name: "John".into(), age: 30 })
+                    
+                    } 
+                }
+            }
+        }
+       
+        Person { name: "John".into(), age: 30 }
     }
 }
+
+
 
 fn main() {
     // Use the `from` function
